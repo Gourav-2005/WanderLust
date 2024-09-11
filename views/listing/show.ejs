@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WanderLust</title>
+</head>
+<body>
+    <%layout("/layout/bolyerplate")%>
+    <div class="row mt-3">
+        <div class="col-8 offset-2 show-card">
+            <h3><%=listing.title%></h3>
+        <br>
+        
+            <div class="card">
+                <img src="<%=listing.image.url%>" class="card-img-top show-img" alt="listing_image">
+                <div class="card-body">
+                    <p class="card-text">
+                       <br>
+                       <i><%= listing.owner.username%></i>
+                       <br>
+                       <%=listing.description%>
+                       <br>
+                       &#8377; <%=listing.price.toLocaleString("en-IN")%>
+                       <br>
+                       <%=listing.location%>,  <%=listing.country%>
+                       <br>
+                    </p>
+                </div>
+            </div>
+            <br>
+            
+    </div>
+
+   <% if(currUser && listing.owner._id.equals(currUser._id)) {%>
+    <div class="btns">
+        <a href="/listing/<%=listing._id%>/edit" class="btn btn-dark col-1 offset-2 mb-4 edit-btn">Edit</a> 
+                <form action="/listing/<%=listing._id%>?_method=DELETE" method="POST">
+                    <button class="btn btn-dark  offset-4 mb-4">Delete</button>
+                </form>
+    </div>
+    <% }%>
+    <hr>
+    <div class="col-8 offset-3 mb-3">
+        <h4>Leave a Review</h4>
+        <form >
+            <div class="mb-3 mt-3">
+                <label for="rating">Rating</label>
+                <input type="range" type="range" min="1" max="5" id="rating" name="review[rating]" class="form-range">
+
+                
+            </div>
+
+            <fieldset class="starability-slot">
+                <legend>First rating:</legend>
+                <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+                <input type="radio" id="second-rate1" name="rating" value="1" />
+                <label for="second-rate1" title="Terrible">1 star</label>
+                <input type="radio" id="second-rate2" name="rating" value="2" />
+                <label for="second-rate2" title="Not good">2 stars</label>
+                <input type="radio" id="second-rate3" name="rating" value="3" />
+                <label for="second-rate3" title="Average">3 stars</label>
+                <input type="radio" id="second-rate4" name="rating" value="4" />
+                <label for="second-rate4" title="Very good">4 stars</label>
+                <input type="radio" id="second-rate5" name="rating" value="5" />
+                <label for="second-rate5" title="Amazing">5 stars</label>
+              </fieldset>
+
+            <div class="mb-3 mt-3">
+                <label for="comment">Comments</label>
+                <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
+            </div>
+            <button class="btn btn-outline-dark">Submit</button>
+        </form>
+       
+    </div>
+
+    </div>
+</div>
+
+</body>
+</html>
